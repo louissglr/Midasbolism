@@ -1,0 +1,88 @@
+---
+title: "Humess Report | `r params$models` "
+format:
+  html:
+    toc: true
+    toc-location: right
+    toc-depth: 3
+    code-fold: true
+    code-tools: true
+    highlight-style: github
+    embed-resources: true
+    anchor-sections: true
+    smooth-scroll: true
+lightbox: true
+execute:
+  cache: false
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+params:
+  models: null
+  outdir: null
+  fs_file: null  
+  png_pca: null
+  png_umap: null
+---
+```{r setup, include=FALSE}
+suppressPackageStartupMessages({
+    library(readxl)
+    library(readr)
+    library(dplyr)
+    library(knitr)
+    library(kableExtra)
+})
+```
+
+# Flux Sampling
+
+## Summary
+
+```{r tbl-params}
+# Read flux sampling table
+fs <- read_tsv(params$fs_file, show_col_types = FALSE)
+
+# Summary table
+summary_df <- data.frame(
+  Metric = c(
+    "Model",
+    "Number of solutions",
+    "Number of reactions"
+  ),
+  Value = c(
+    params$models,
+    nrow(fs),
+    ncol(fs)
+  )
+)
+
+# Render table
+kable(summary_df, align = c("l", "c"))
+
+```{r tbl-benchmark}
+fs_preview <- fs[1:min(5, nrow(fs)), 1:min(10, ncol(fs))]
+kable(fs_preview, align = "c")
+```
+
+## Dimensionality reduction
+
+::: {.panel-tabset}
+
+#### PCA
+
+```{r fig-pca_fs}
+#| fig-cap: "PCA on fs"
+#| out-width: 100%
+include_graphics(params$png_pca)
+```
+
+#### UMAP
+
+```{r fig-umap_fs}
+#| fig-cap: "UMAP on the first 100 PCs "
+#| out-width: 100%
+include_graphics(params$png_umap)
+```
+
+:::

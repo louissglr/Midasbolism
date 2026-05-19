@@ -1,0 +1,24 @@
+# Snakemake
+pipeline/workflow/.snakemake/
+*.log
+*.tmp
+.snakemake
+
+# Results
+pipeline/results/
+
+#humess pipeline
+humess/ 
+
+#softwares
+softs/
+software/
+
+# Environnements
+.env
+*.conda
+*.yaml
+
+# Python
+__pycache__/
+*.pyc

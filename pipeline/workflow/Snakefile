@@ -1,0 +1,143 @@
+import os
+import pandas as pd
+
+configfile: "../config/config-glicid-scratch.yml"
+
+
+# Outputs for rule all()
+def all_outputs():
+    outputs = []
+
+    for model in config["models"]:
+
+        outputs.append(
+            f"{config['outDir']}/{model}/pca_fs/{model}_pca.tsv"
+        )
+
+        outputs.append(
+            f"{config['outDir']}/{model}/pca_fs/{model}_pca.png"
+        )
+
+        outputs.append(
+            f"{config['outDir']}/{model}/umap_fs/{model}_umap.tsv"
+        )
+
+        outputs.append(
+            f"{config['outDir']}/{model}/umap_fs/{model}_umap.png"
+        )
+
+        outputs.append(
+            f"{config['outDir']}/{model}/report/{model}.report.html"
+        )
+
+    return outputs
+
+
+# RULE ALL
+rule all:
+    input:
+        all_outputs()
+
+
+# PCA
+rule pc_fs:
+    input:
+        fs=f"{config['dataDir']}/models/{{models}}/fs/fs_{{models}}.tsv"
+    output:
+        pca=f"{config['outDir']}/{{models}}/pca_fs/{{models}}_pca.tsv"
+    conda:
+        "envs/env.yml"
+    threads: 1
+    script:
+        "scripts/pca_fs.R"
+
+
+rule plot_pca:
+    input:
+        pca=f"{config['outDir']}/{{models}}/pca_fs/{{models}}_pca.tsv"
+    output:
+        png=f"{config['outDir']}/{{models}}/pca_fs/{{models}}_pca.png"
+    conda:
+        "envs/env.yml"
+    threads: 1
+    script:
+        "scripts/plot_pca.R"
+
+
+# UMAP (on PCA)
+rule umap_fs:
+    input:
+        pca=f"{config['outDir']}/{{models}}/pca_fs/{{models}}_pca.tsv"
+    output:
+        umap=f"{config['outDir']}/{{models}}/umap_fs/{{models}}_umap.tsv"
+    conda:
+        "envs/env.yml"
+    threads: 1
+    script:
+        "scripts/umap_fs.R"
+
+
+rule plot_umap:
+    input:
+        umap=f"{config['outDir']}/{{models}}/umap_fs/{{models}}_umap.tsv"
+    output:
+        png=f"{config['outDir']}/{{models}}/umap_fs/{{models}}_umap.png"
+    conda:
+        "envs/env.yml"
+    threads: 1
+    script:
+        "scripts/plot_umap.R"
+
+
+# HTML reports for each models
+rule render_report:
+    input:
+        qmd="scripts/report_humess.qmd",
+        fs=f"{config['dataDir']}/models/{{models}}/fs/fs_{{models}}.tsv",
+        pca=f"{config['outDir']}/{{models}}/pca_fs/{{models}}_pca.tsv",
+        umap=f"{config['outDir']}/{{models}}/umap_fs/{{models}}_umap.tsv",
+        png_pca=f"{config['outDir']}/{{models}}/pca_fs/{{models}}_pca.png",
+        png_umap=f"{config['outDir']}/{{models}}/umap_fs/{{models}}_umap.png"
+
+    output:
+        html=report(
+            f"{config['outDir']}/{{models}}/report/{{models}}.report.html",
+            category="{models}",
+            labels={"model": "{models}"}
+        )
+
+    params:
+        outdir=f"{config['outDir']}/{{models}}/report",
+        models="{models}"
+
+    conda:
+        "envs/quarto.yml"
+
+    threads: 1
+
+    log:
+        f"{config['outDir']}/{{models}}/report/render_report.log"
+
+    shell:
+        r"""
+        mkdir -p "{params.outdir}"
+
+        export TMPDIR="${{TMPDIR:-/tmp}}"
+        export DENO_DIR="$TMPDIR/quarto-deno-cache-{wildcards.models}"
+        export XDG_CACHE_HOME="$TMPDIR/quarto-xdg-cache-{wildcards.models}"
+
+        cp "{input.qmd}" "{params.outdir}/report_humess.qmd"
+
+        cd "{params.outdir}"
+
+        quarto render report_humess.qmd \
+            --output "{wildcards.models}.report.html" \
+            -P models:"{params.models}" \
+            -P outdir:"{params.outdir}" \
+            -P fs_file:"{input.fs}" \
+            -P png_pca:"{input.png_pca}" \
+            -P png_umap:"{input.png_umap}" \
+            > "{log}" 2>&1
+
+        rm -f report_humess.qmd
+        """
