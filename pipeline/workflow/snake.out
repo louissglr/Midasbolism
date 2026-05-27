@@ -3,7 +3,7 @@ Config file ../config/config-glicid-scratch.yml is extended by additional config
 host: nautilus-devel-001.nautilus.intra.glicid.fr
 Building DAG of jobs...
 Your conda installation is not configured to use strict channel priorities. This is however important for having robust and correct environments (for details, see https://conda-forge.org/docs/user/tipsandtricks.html). Please consider to configure strict priorities by executing 'conda config --set channel_priority strict'.
-SLURM run ID: ab5a5827-f181-414c-b805-488ccd450f3a
+SLURM run ID: 7b78db1a-a8c9-405b-8886-98919281589c
 Using shell: /usr/bin/bash
 Provided remote nodes: 300
 Job stats:
@@ -17,160 +17,161 @@ Select jobs to execute...
 Failed to solve scheduling problem with ILP solver, falling back to greedy scheduler. You likely have to fix your ILP solver installation. Error message: PULP_CBC_CMD: Not Available (check permissions on cbc)
 Execute 9 jobs...
 
-[Tue May 19 12:08:24 2026]
+[Wed May 27 12:18:10 2026]
 rule render_report:
     input: scripts/report_humess.qmd, /LAB-DATA/GLiCID/projects/CRCI2NA_DATA/ICAGEN/MIDAS/Analyses/RNA-seq/METABOLISM/HUMESS/models/edgeR/MIDAS_exp.cluster/output/models/MF/fs/fs_MF.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/pca_fs/MF_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/umap_fs/MF_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/pca_fs/MF_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/umap_fs/MF_umap.png
     output: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/report/MF.report.html
     log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/report/render_report.log
-    jobid: 35
-    reason: Updated input files: scripts/report_humess.qmd
+    jobid: 42
+    reason: Updated input files: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/pca_fs/MF_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/umap_fs/MF_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/pca_fs/MF_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/umap_fs/MF_umap.tsv
     wildcards: models=MF
-    resources: mem_mb=100000, mem_mib=95368, disk_mb=31504, disk_mib=30045, tmpdir=<TBD>, runtime=60, clusters=nautilus, slurm_account=crci2na, slurm_partition=all, slurm_extra=--qos=quick
-Job 35 has been submitted with SLURM jobid 10712007 (log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/workflow/.snakemake/slurm_logs/rule_render_report/MF/10712007.log).
+    resources: mem_mb=40000, mem_mib=38147, disk_mb=52104, disk_mib=49691, tmpdir=<TBD>, runtime=60, clusters=nautilus, slurm_account=crci2na, slurm_partition=all, slurm_extra=--qos=quick
+Job 42 has been submitted with SLURM jobid 10729961 (log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/workflow/.snakemake/slurm_logs/rule_render_report/MF/10729961.log).
 
-[Tue May 19 12:08:24 2026]
-rule render_report:
-    input: scripts/report_humess.qmd, /LAB-DATA/GLiCID/projects/CRCI2NA_DATA/ICAGEN/MIDAS/Analyses/RNA-seq/METABOLISM/HUMESS/models/edgeR/MIDAS_exp.cluster/output/models/LB/fs/fs_LB.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/pca_fs/LB_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/umap_fs/LB_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/pca_fs/LB_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/umap_fs/LB_umap.png
-    output: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/report/LB.report.html
-    log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/report/render_report.log
-    jobid: 30
-    reason: Updated input files: scripts/report_humess.qmd
-    wildcards: models=LB
-    resources: mem_mb=100000, mem_mib=95368, disk_mb=28991, disk_mib=27648, tmpdir=<TBD>, runtime=60, clusters=nautilus, slurm_account=crci2na, slurm_partition=all, slurm_extra=--qos=quick
-Job 30 has been submitted with SLURM jobid 10712008 (log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/workflow/.snakemake/slurm_logs/rule_render_report/LB/10712008.log).
-
-[Tue May 19 12:08:24 2026]
-rule render_report:
-    input: scripts/report_humess.qmd, /LAB-DATA/GLiCID/projects/CRCI2NA_DATA/ICAGEN/MIDAS/Analyses/RNA-seq/METABOLISM/HUMESS/models/edgeR/MIDAS_exp.cluster/output/models/HP3/fs/fs_HP3.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/pca_fs/HP3_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/umap_fs/HP3_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/pca_fs/HP3_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/umap_fs/HP3_umap.png
-    output: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/report/HP3.report.html
-    log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/report/render_report.log
-    jobid: 25
-    reason: Updated input files: scripts/report_humess.qmd
-    wildcards: models=HP3
-    resources: mem_mb=100000, mem_mib=95368, disk_mb=29371, disk_mib=28011, tmpdir=<TBD>, runtime=60, clusters=nautilus, slurm_account=crci2na, slurm_partition=all, slurm_extra=--qos=quick
-Job 25 has been submitted with SLURM jobid 10712009 (log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/workflow/.snakemake/slurm_logs/rule_render_report/HP3/10712009.log).
-
-[Tue May 19 12:08:24 2026]
-rule render_report:
-    input: scripts/report_humess.qmd, /LAB-DATA/GLiCID/projects/CRCI2NA_DATA/ICAGEN/MIDAS/Analyses/RNA-seq/METABOLISM/HUMESS/models/edgeR/MIDAS_exp.cluster/output/models/HP2/fs/fs_HP2.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/pca_fs/HP2_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/umap_fs/HP2_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/pca_fs/HP2_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/umap_fs/HP2_umap.png
-    output: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/report/HP2.report.html
-    log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/report/render_report.log
-    jobid: 20
-    reason: Updated input files: scripts/report_humess.qmd
-    wildcards: models=HP2
-    resources: mem_mb=100000, mem_mib=95368, disk_mb=32254, disk_mib=30760, tmpdir=<TBD>, runtime=60, clusters=nautilus, slurm_account=crci2na, slurm_partition=all, slurm_extra=--qos=quick
-Job 20 has been submitted with SLURM jobid 10712010 (log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/workflow/.snakemake/slurm_logs/rule_render_report/HP2/10712010.log).
-
-[Tue May 19 12:08:24 2026]
-rule render_report:
-    input: scripts/report_humess.qmd, /LAB-DATA/GLiCID/projects/CRCI2NA_DATA/ICAGEN/MIDAS/Analyses/RNA-seq/METABOLISM/HUMESS/models/edgeR/MIDAS_exp.cluster/output/models/HP1/fs/fs_HP1.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/pca_fs/HP1_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/umap_fs/HP1_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/pca_fs/HP1_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/umap_fs/HP1_umap.png
-    output: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/report/HP1.report.html
-    log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/report/render_report.log
-    jobid: 15
-    reason: Updated input files: scripts/report_humess.qmd
-    wildcards: models=HP1
-    resources: mem_mb=100000, mem_mib=95368, disk_mb=28818, disk_mib=27483, tmpdir=<TBD>, runtime=60, clusters=nautilus, slurm_account=crci2na, slurm_partition=all, slurm_extra=--qos=quick
-Job 15 has been submitted with SLURM jobid 10712011 (log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/workflow/.snakemake/slurm_logs/rule_render_report/HP1/10712011.log).
-
-[Tue May 19 12:08:24 2026]
-rule render_report:
-    input: scripts/report_humess.qmd, /LAB-DATA/GLiCID/projects/CRCI2NA_DATA/ICAGEN/MIDAS/Analyses/RNA-seq/METABOLISM/HUMESS/models/edgeR/MIDAS_exp.cluster/output/models/CD2/fs/fs_CD2.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/pca_fs/CD2_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/umap_fs/CD2_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/pca_fs/CD2_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/umap_fs/CD2_umap.png
-    output: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/report/CD2.report.html
-    log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/report/render_report.log
-    jobid: 10
-    reason: Updated input files: scripts/report_humess.qmd
-    wildcards: models=CD2
-    resources: mem_mb=100000, mem_mib=95368, disk_mb=28733, disk_mib=27402, tmpdir=<TBD>, runtime=60, clusters=nautilus, slurm_account=crci2na, slurm_partition=all, slurm_extra=--qos=quick
-Job 10 has been submitted with SLURM jobid 10712012 (log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/workflow/.snakemake/slurm_logs/rule_render_report/CD2/10712012.log).
-
-[Tue May 19 12:08:24 2026]
-rule render_report:
-    input: scripts/report_humess.qmd, /LAB-DATA/GLiCID/projects/CRCI2NA_DATA/ICAGEN/MIDAS/Analyses/RNA-seq/METABOLISM/HUMESS/models/edgeR/MIDAS_exp.cluster/output/models/MS/fs/fs_MS.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/pca_fs/MS_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/umap_fs/MS_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/pca_fs/MS_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/umap_fs/MS_umap.png
-    output: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/report/MS.report.html
-    log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/report/render_report.log
-    jobid: 45
-    reason: Updated input files: scripts/report_humess.qmd
-    wildcards: models=MS
-    resources: mem_mb=100000, mem_mib=95368, disk_mb=29925, disk_mib=28539, tmpdir=<TBD>, runtime=60, clusters=nautilus, slurm_account=crci2na, slurm_partition=all, slurm_extra=--qos=quick
-Job 45 has been submitted with SLURM jobid 10712013 (log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/workflow/.snakemake/slurm_logs/rule_render_report/MS/10712013.log).
-
-[Tue May 19 12:08:24 2026]
+[Wed May 27 12:18:10 2026]
 rule render_report:
     input: scripts/report_humess.qmd, /LAB-DATA/GLiCID/projects/CRCI2NA_DATA/ICAGEN/MIDAS/Analyses/RNA-seq/METABOLISM/HUMESS/models/edgeR/MIDAS_exp.cluster/output/models/MN/fs/fs_MN.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/pca_fs/MN_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/umap_fs/MN_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/pca_fs/MN_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/umap_fs/MN_umap.png
     output: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/report/MN.report.html
     log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/report/render_report.log
-    jobid: 40
-    reason: Updated input files: scripts/report_humess.qmd
+    jobid: 48
+    reason: Updated input files: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/umap_fs/MN_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/pca_fs/MN_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/umap_fs/MN_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/pca_fs/MN_pca.png
     wildcards: models=MN
-    resources: mem_mb=100000, mem_mib=95368, disk_mb=32152, disk_mib=30663, tmpdir=<TBD>, runtime=60, clusters=nautilus, slurm_account=crci2na, slurm_partition=all, slurm_extra=--qos=quick
-Job 40 has been submitted with SLURM jobid 10712014 (log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/workflow/.snakemake/slurm_logs/rule_render_report/MN/10712014.log).
+    resources: mem_mb=40000, mem_mib=38147, disk_mb=53119, disk_mib=50659, tmpdir=<TBD>, runtime=60, clusters=nautilus, slurm_account=crci2na, slurm_partition=all, slurm_extra=--qos=quick
+Job 48 has been submitted with SLURM jobid 10729962 (log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/workflow/.snakemake/slurm_logs/rule_render_report/MN/10729962.log).
 
-[Tue May 19 12:08:24 2026]
+[Wed May 27 12:18:10 2026]
+rule render_report:
+    input: scripts/report_humess.qmd, /LAB-DATA/GLiCID/projects/CRCI2NA_DATA/ICAGEN/MIDAS/Analyses/RNA-seq/METABOLISM/HUMESS/models/edgeR/MIDAS_exp.cluster/output/models/MS/fs/fs_MS.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/pca_fs/MS_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/umap_fs/MS_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/pca_fs/MS_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/umap_fs/MS_umap.png
+    output: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/report/MS.report.html
+    log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/report/render_report.log
+    jobid: 54
+    reason: Updated input files: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/umap_fs/MS_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/pca_fs/MS_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/pca_fs/MS_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/umap_fs/MS_umap.png
+    wildcards: models=MS
+    resources: mem_mb=40000, mem_mib=38147, disk_mb=49398, disk_mib=47110, tmpdir=<TBD>, runtime=60, clusters=nautilus, slurm_account=crci2na, slurm_partition=all, slurm_extra=--qos=quick
+Job 54 has been submitted with SLURM jobid 10729963 (log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/workflow/.snakemake/slurm_logs/rule_render_report/MS/10729963.log).
+
+[Wed May 27 12:18:10 2026]
 rule render_report:
     input: scripts/report_humess.qmd, /LAB-DATA/GLiCID/projects/CRCI2NA_DATA/ICAGEN/MIDAS/Analyses/RNA-seq/METABOLISM/HUMESS/models/edgeR/MIDAS_exp.cluster/output/models/CD1/fs/fs_CD1.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/pca_fs/CD1_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/umap_fs/CD1_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/pca_fs/CD1_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/umap_fs/CD1_umap.png
     output: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/report/CD1.report.html
     log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/report/render_report.log
-    jobid: 5
-    reason: Updated input files: scripts/report_humess.qmd
+    jobid: 6
+    reason: Updated input files: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/pca_fs/CD1_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/umap_fs/CD1_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/umap_fs/CD1_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/pca_fs/CD1_pca.tsv
     wildcards: models=CD1
-    resources: mem_mb=100000, mem_mib=95368, disk_mb=28787, disk_mib=27454, tmpdir=<TBD>, runtime=60, clusters=nautilus, slurm_account=crci2na, slurm_partition=all, slurm_extra=--qos=quick
-Job 5 has been submitted with SLURM jobid 10712015 (log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/workflow/.snakemake/slurm_logs/rule_render_report/CD1/10712015.log).
-[Tue May 19 12:13:35 2026]
-Finished jobid: 15 (Rule: render_report)
+    resources: mem_mb=40000, mem_mib=38147, disk_mb=47735, disk_mib=45524, tmpdir=<TBD>, runtime=60, clusters=nautilus, slurm_account=crci2na, slurm_partition=all, slurm_extra=--qos=quick
+Job 6 has been submitted with SLURM jobid 10729964 (log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/workflow/.snakemake/slurm_logs/rule_render_report/CD1/10729964.log).
+
+[Wed May 27 12:18:10 2026]
+rule render_report:
+    input: scripts/report_humess.qmd, /LAB-DATA/GLiCID/projects/CRCI2NA_DATA/ICAGEN/MIDAS/Analyses/RNA-seq/METABOLISM/HUMESS/models/edgeR/MIDAS_exp.cluster/output/models/CD2/fs/fs_CD2.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/pca_fs/CD2_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/umap_fs/CD2_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/pca_fs/CD2_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/umap_fs/CD2_umap.png
+    output: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/report/CD2.report.html
+    log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/report/render_report.log
+    jobid: 12
+    reason: Updated input files: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/umap_fs/CD2_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/umap_fs/CD2_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/pca_fs/CD2_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/pca_fs/CD2_pca.png
+    wildcards: models=CD2
+    resources: mem_mb=40000, mem_mib=38147, disk_mb=47635, disk_mib=45429, tmpdir=<TBD>, runtime=60, clusters=nautilus, slurm_account=crci2na, slurm_partition=all, slurm_extra=--qos=quick
+Job 12 has been submitted with SLURM jobid 10729965 (log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/workflow/.snakemake/slurm_logs/rule_render_report/CD2/10729965.log).
+
+[Wed May 27 12:18:10 2026]
+rule render_report:
+    input: scripts/report_humess.qmd, /LAB-DATA/GLiCID/projects/CRCI2NA_DATA/ICAGEN/MIDAS/Analyses/RNA-seq/METABOLISM/HUMESS/models/edgeR/MIDAS_exp.cluster/output/models/HP1/fs/fs_HP1.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/pca_fs/HP1_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/umap_fs/HP1_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/pca_fs/HP1_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/umap_fs/HP1_umap.png
+    output: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/report/HP1.report.html
+    log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/report/render_report.log
+    jobid: 18
+    reason: Updated input files: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/umap_fs/HP1_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/pca_fs/HP1_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/umap_fs/HP1_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/pca_fs/HP1_pca.tsv
+    wildcards: models=HP1
+    resources: mem_mb=40000, mem_mib=38147, disk_mb=47767, disk_mib=45555, tmpdir=<TBD>, runtime=60, clusters=nautilus, slurm_account=crci2na, slurm_partition=all, slurm_extra=--qos=quick
+Job 18 has been submitted with SLURM jobid 10729966 (log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/workflow/.snakemake/slurm_logs/rule_render_report/HP1/10729966.log).
+
+[Wed May 27 12:18:10 2026]
+rule render_report:
+    input: scripts/report_humess.qmd, /LAB-DATA/GLiCID/projects/CRCI2NA_DATA/ICAGEN/MIDAS/Analyses/RNA-seq/METABOLISM/HUMESS/models/edgeR/MIDAS_exp.cluster/output/models/HP2/fs/fs_HP2.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/pca_fs/HP2_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/umap_fs/HP2_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/pca_fs/HP2_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/umap_fs/HP2_umap.png
+    output: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/report/HP2.report.html
+    log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/report/render_report.log
+    jobid: 24
+    reason: Updated input files: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/pca_fs/HP2_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/umap_fs/HP2_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/pca_fs/HP2_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/umap_fs/HP2_umap.tsv
+    wildcards: models=HP2
+    resources: mem_mb=40000, mem_mib=38147, disk_mb=53317, disk_mib=50848, tmpdir=<TBD>, runtime=60, clusters=nautilus, slurm_account=crci2na, slurm_partition=all, slurm_extra=--qos=quick
+Job 24 has been submitted with SLURM jobid 10729967 (log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/workflow/.snakemake/slurm_logs/rule_render_report/HP2/10729967.log).
+
+[Wed May 27 12:18:10 2026]
+rule render_report:
+    input: scripts/report_humess.qmd, /LAB-DATA/GLiCID/projects/CRCI2NA_DATA/ICAGEN/MIDAS/Analyses/RNA-seq/METABOLISM/HUMESS/models/edgeR/MIDAS_exp.cluster/output/models/HP3/fs/fs_HP3.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/pca_fs/HP3_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/umap_fs/HP3_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/pca_fs/HP3_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/umap_fs/HP3_umap.png
+    output: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/report/HP3.report.html
+    log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/report/render_report.log
+    jobid: 30
+    reason: Updated input files: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/umap_fs/HP3_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/pca_fs/HP3_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/umap_fs/HP3_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/pca_fs/HP3_pca.png
+    wildcards: models=HP3
+    resources: mem_mb=40000, mem_mib=38147, disk_mb=48635, disk_mib=46382, tmpdir=<TBD>, runtime=60, clusters=nautilus, slurm_account=crci2na, slurm_partition=all, slurm_extra=--qos=quick
+Job 30 has been submitted with SLURM jobid 10729968 (log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/workflow/.snakemake/slurm_logs/rule_render_report/HP3/10729968.log).
+
+[Wed May 27 12:18:10 2026]
+rule render_report:
+    input: scripts/report_humess.qmd, /LAB-DATA/GLiCID/projects/CRCI2NA_DATA/ICAGEN/MIDAS/Analyses/RNA-seq/METABOLISM/HUMESS/models/edgeR/MIDAS_exp.cluster/output/models/LB/fs/fs_LB.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/pca_fs/LB_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/umap_fs/LB_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/pca_fs/LB_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/umap_fs/LB_umap.png
+    output: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/report/LB.report.html
+    log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/report/render_report.log
+    jobid: 36
+    reason: Updated input files: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/umap_fs/LB_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/pca_fs/LB_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/pca_fs/LB_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/umap_fs/LB_umap.png
+    wildcards: models=LB
+    resources: mem_mb=40000, mem_mib=38147, disk_mb=48070, disk_mib=45844, tmpdir=<TBD>, runtime=60, clusters=nautilus, slurm_account=crci2na, slurm_partition=all, slurm_extra=--qos=quick
+Job 36 has been submitted with SLURM jobid 10729969 (log: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/workflow/.snakemake/slurm_logs/rule_render_report/LB/10729969.log).
+[Wed May 27 12:26:11 2026]
+Finished jobid: 42 (Rule: render_report)
 1 of 10 steps (10%) done
-[Tue May 19 12:15:05 2026]
-Finished jobid: 35 (Rule: render_report)
+[Wed May 27 12:26:11 2026]
+Finished jobid: 48 (Rule: render_report)
 2 of 10 steps (20%) done
-[Tue May 19 12:15:05 2026]
-Finished jobid: 30 (Rule: render_report)
+[Wed May 27 12:26:11 2026]
+Finished jobid: 54 (Rule: render_report)
 3 of 10 steps (30%) done
-[Tue May 19 12:15:05 2026]
-Finished jobid: 25 (Rule: render_report)
+[Wed May 27 12:26:11 2026]
+Finished jobid: 6 (Rule: render_report)
 4 of 10 steps (40%) done
-[Tue May 19 12:15:05 2026]
-Finished jobid: 20 (Rule: render_report)
+[Wed May 27 12:26:11 2026]
+Finished jobid: 12 (Rule: render_report)
 5 of 10 steps (50%) done
-[Tue May 19 12:15:05 2026]
-Finished jobid: 10 (Rule: render_report)
+[Wed May 27 12:26:11 2026]
+Finished jobid: 18 (Rule: render_report)
 6 of 10 steps (60%) done
-[Tue May 19 12:15:05 2026]
-Finished jobid: 45 (Rule: render_report)
+[Wed May 27 12:26:11 2026]
+Finished jobid: 24 (Rule: render_report)
 7 of 10 steps (70%) done
-[Tue May 19 12:15:05 2026]
-Finished jobid: 40 (Rule: render_report)
+[Wed May 27 12:26:11 2026]
+Finished jobid: 30 (Rule: render_report)
 8 of 10 steps (80%) done
-[Tue May 19 12:15:05 2026]
-Finished jobid: 5 (Rule: render_report)
+[Wed May 27 12:26:11 2026]
+Finished jobid: 36 (Rule: render_report)
 9 of 10 steps (90%) done
 Select jobs to execute...
 Execute 1 jobs...
 
-[Tue May 19 12:15:05 2026]
+[Wed May 27 12:26:11 2026]
 localrule all:
-    input: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/pca_fs/CD1_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/pca_fs/CD1_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/umap_fs/CD1_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/umap_fs/CD1_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/report/CD1.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/pca_fs/CD2_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/pca_fs/CD2_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/umap_fs/CD2_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/umap_fs/CD2_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/report/CD2.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/pca_fs/HP1_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/pca_fs/HP1_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/umap_fs/HP1_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/umap_fs/HP1_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/report/HP1.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/pca_fs/HP2_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/pca_fs/HP2_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/umap_fs/HP2_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/umap_fs/HP2_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/report/HP2.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/pca_fs/HP3_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/pca_fs/HP3_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/umap_fs/HP3_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/umap_fs/HP3_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/report/HP3.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/pca_fs/LB_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/pca_fs/LB_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/umap_fs/LB_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/umap_fs/LB_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/report/LB.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/pca_fs/MF_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/pca_fs/MF_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/umap_fs/MF_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/umap_fs/MF_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/report/MF.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/pca_fs/MN_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/pca_fs/MN_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/umap_fs/MN_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/umap_fs/MN_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/report/MN.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/pca_fs/MS_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/pca_fs/MS_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/umap_fs/MS_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/umap_fs/MS_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/report/MS.report.html
+    input: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/pca_fs/CD1_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/pca_fs/CD1_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/umap_fs/CD1_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/umap_fs/CD1_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/report/CD1.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/fs_sampled/fs_sampled_CD1.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/pca_fs/CD2_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/pca_fs/CD2_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/umap_fs/CD2_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/umap_fs/CD2_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/report/CD2.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/fs_sampled/fs_sampled_CD2.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/pca_fs/HP1_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/pca_fs/HP1_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/umap_fs/HP1_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/umap_fs/HP1_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/report/HP1.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/fs_sampled/fs_sampled_HP1.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/pca_fs/HP2_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/pca_fs/HP2_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/umap_fs/HP2_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/umap_fs/HP2_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/report/HP2.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/fs_sampled/fs_sampled_HP2.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/pca_fs/HP3_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/pca_fs/HP3_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/umap_fs/HP3_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/umap_fs/HP3_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/report/HP3.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/fs_sampled/fs_sampled_HP3.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/pca_fs/LB_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/pca_fs/LB_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/umap_fs/LB_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/umap_fs/LB_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/report/LB.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/fs_sampled/fs_sampled_LB.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/pca_fs/MF_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/pca_fs/MF_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/umap_fs/MF_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/umap_fs/MF_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/report/MF.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/fs_sampled/fs_sampled_MF.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/pca_fs/MN_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/pca_fs/MN_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/umap_fs/MN_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/umap_fs/MN_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/report/MN.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/fs_sampled/fs_sampled_MN.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/pca_fs/MS_pca.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/pca_fs/MS_pca.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/umap_fs/MS_umap.tsv, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/umap_fs/MS_umap.png, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/report/MS.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/fs_sampled/fs_sampled_MS.tsv
     jobid: 0
-    reason: Input files updated by another job: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/report/MS.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/report/CD1.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/report/CD2.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/report/HP3.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/report/HP2.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/report/LB.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/report/MF.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/report/HP1.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/report/MN.report.html
-    resources: mem_mb=100000, mem_mib=95368, disk_mb=10184, disk_mib=9713, tmpdir=/tmp, runtime=60, clusters=nautilus, slurm_account=crci2na, slurm_partition=all, slurm_extra=--qos=quick
-[Tue May 19 12:15:05 2026]
+    reason: Input files updated by another job: /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MN/report/MN.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP3/report/HP3.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP1/report/HP1.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD2/report/CD2.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/CD1/report/CD1.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/LB/report/LB.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/HP2/report/HP2.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MF/report/MF.report.html, /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/results/MS/report/MS.report.html
+    resources: mem_mb=40000, mem_mib=38147, disk_mb=187430, disk_mib=178748, tmpdir=/tmp, runtime=60, clusters=nautilus, slurm_account=crci2na, slurm_partition=all, slurm_extra=--qos=quick
+[Wed May 27 12:26:11 2026]
 Finished jobid: 0 (Rule: all)
 10 of 10 steps (100%) done
 Cleaning up log files older than 10 day(s).
-Complete log(s): /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/workflow/.snakemake/log/2026-05-19T120822.041603.snakemake.log
+Complete log(s): /scratch/nautilus/users/sanglier-l@univ-nantes.fr/Midasbolism/pipeline/workflow/.snakemake/log/2026-05-27T121808.703163.snakemake.log
 Using profiles profiles/default/ and workflow specific profile profiles/default for setting default command line arguments.
 Config file ../config/config-glicid-scratch.yml is extended by additional config specified via the command line.
 Building DAG of jobs...
 Your conda installation is not configured to use strict channel priorities. This is however important for having robust and correct environments (for details, see https://conda-forge.org/docs/user/tipsandtricks.html). Please consider to configure strict priorities by executing 'conda config --set channel_priority strict'.
 Creating report...
-Adding CD1.report.html (1.59 MB).
-Adding CD2.report.html (1.58 MB).
-Adding HP1.report.html (1.58 MB).
-Adding HP2.report.html (1.62 MB).
-Adding HP3.report.html (1.58 MB).
-Adding LB.report.html (1.59 MB).
-Adding MF.report.html (1.64 MB).
-Adding MN.report.html (1.61 MB).
-Adding MS.report.html (1.59 MB).
+Adding CD1.report.html (1.62 MB).
+Adding CD2.report.html (1.65 MB).
+Adding HP1.report.html (1.68 MB).
+Adding HP2.report.html (1.68 MB).
+Adding HP3.report.html (1.54 MB).
+Adding LB.report.html (1.57 MB).
+Adding MF.report.html (1.6 MB).
+Adding MN.report.html (1.55 MB).
+Adding MS.report.html (1.66 MB).
 Loading script code for rule pc_fs
+Loading script code for rule sample_fs
 Loading script code for rule plot_pca
 Loading script code for rule umap_fs
 Loading script code for rule plot_umap

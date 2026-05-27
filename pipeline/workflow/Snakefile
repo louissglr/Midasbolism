@@ -29,6 +29,13 @@ def all_outputs():
         outputs.append(
             f"{config['outDir']}/{model}/report/{model}.report.html"
         )
+        outputs.append(
+            f"{config['outDir']}/{model}/fs_sampled/fs_sampled_{model}.tsv"
+        )
+        # outputs.append(
+        #     f"{config['outDir']}/{model}/pcoa_fs/{model}_pcoa.tsv"
+        # )
+
 
     return outputs
 
@@ -42,7 +49,8 @@ rule all:
 # PCA
 rule pc_fs:
     input:
-        fs=f"{config['dataDir']}/models/{{models}}/fs/fs_{{models}}.tsv"
+        fs=f"{config['dataDir']}/models/{{models}}/fs/fs_{{models}}.tsv",
+        sampled=f"{config['outDir']}/{{models}}/fs_sampled/fs_sampled_{{models}}.tsv"
     output:
         pca=f"{config['outDir']}/{{models}}/pca_fs/{{models}}_pca.tsv"
     conda:
@@ -64,7 +72,7 @@ rule plot_pca:
         "scripts/plot_pca.R"
 
 
-# UMAP (on PCA)
+#UMAP (on PCA)
 rule umap_fs:
     input:
         pca=f"{config['outDir']}/{{models}}/pca_fs/{{models}}_pca.tsv"
@@ -89,7 +97,35 @@ rule plot_umap:
         "scripts/plot_umap.R"
 
 
-# HTML reports for each models
+# random sampling ids
+rule sample_fs:
+    input:
+        fs=f"{config['dataDir']}/models/{{models}}/fs/fs_{{models}}.tsv"
+    output:
+        sampled=f"{config['outDir']}/{{models}}/fs_sampled/fs_sampled_{{models}}.tsv"
+    params:
+        n=10000,
+        seed=42
+    conda:
+        "envs/env.yml"
+    threads: 1
+    script:
+        "scripts/sample_fs.R"
+
+#pcoa
+# rule pcoa_fs:
+#     input:
+#         fs=f"{config['dataDir']}/models/{{models}}/fs/fs_{{models}}.tsv",
+#         sampled=f"{config['outDir']}/{{models}}/fs_sampled/fs_sampled_{{models}}.tsv"
+#     output:
+#         pcoa=f"{config['outDir']}/{{models}}/pcoa_fs/{{models}}_pcoa.tsv"
+#     conda:
+#         "envs/env.yml"
+#     threads: 3
+#     script:
+#         "scripts/pcoa_fs.R"
+
+#HTML reports for each models
 rule render_report:
     input:
         qmd="scripts/report_humess.qmd",
