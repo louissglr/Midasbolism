@@ -1,66 +1,110 @@
-library(readr)
-library(dplyr)
-library(data.table)
+# Logging
+if (exists("snakemake")) {
+  log_file <- snakemake@log[[1]]           
+  log_dir <- dirname(log_file)
+  if (!dir.exists(log_dir)) dir.create(log_dir, recursive = TRUE)
 
-# Input  :
-# rows = sampling solutions
-# columns = flux reactions
-input_file  <- snakemake@input[["fs"]]
-sampled_file <- snakemake@input[["sampled"]]
+  mainlog <- file(log_file, open = "wt")
+  sink(mainlog, append = FALSE, type = "output")
+  sink(mainlog, append = FALSE, type = "message")
 
-# Output (pca$x) :
-# rows = flux reactions
-# columns = PCs
+  on.exit(sink(type = "output"))
+  on.exit(sink(type = "message"), add = TRUE)
+  on.exit(close(mainlog), add = TRUE)
+}
+
+suppressPackageStartupMessages({
+    library(readr)
+    library(dplyr)
+    library(data.table)
+})
+
+# Inputs
+input_file <- snakemake@input[["fs"]]
+
+# Params
+n <- snakemake@params[["n"]]
+seed <- snakemake@params[["seed"]]
+sampling <- snakemake@params[["sampling"]]
+
+# Output
 output_file <- snakemake@output[["pca"]]
 
+set.seed(seed)
+
+cat("[CHECKPOINT] input_file:", input_file, "\n")
+cat("[CHECKPOINT] n:", n, "seed:", seed, "\n")
+cat("[CHECKPOINT] sampling:", sampling, "\n")
+
+# Read full matrix
 flux_table <- suppressMessages(
-    read_tsv(file = input_file)
+  read_tsv(file = input_file)
 )
 
-# Load sampled IDs
-sampled_ids <- fread(sampled_file)[[1]]
+cat("[CHECKPOINT] flux_table dim:", dim(flux_table), "\n")
 
-# Identify ID column 
-id_col <- names(flux_table)[1]
+# --- CONDITIONAL SAMPLING ---
+n_total <- nrow(flux_table)
 
-# Subsampling
-flux_table <- flux_table %>%
-    filter(.data[[id_col]] %in% sampled_ids)
+if (isTRUE(sampling)) {
 
-# Keep IDs for later
-ids <- flux_table[[id_col]]
+  n_keep <- min(n, n_total)
+  sample_idx <- sample(seq_len(n_total), n_keep, replace = FALSE)
+  flux_table_sub <- flux_table[sample_idx, ]
 
-flux_table <- flux_table |>
-    dplyr::select(-c(1))
+  cat("[CHECKPOINT] sampling ENABLED\n")
 
-# transpose because:
-# rows = features 
-# columns = samples
+} else {
 
-#mat <- t(flux_table)
+  flux_table_sub <- flux_table
+  n_keep <- n_total
 
-mat <- as.matrix(flux_table)
+  cat("[CHECKPOINT] sampling DISABLED\n")
+}
 
-pca <- prcomp(
-    mat,
-    center = TRUE,
-    scale. = TRUE
+cat("[CHECKPOINT] flux_table_sub dim:", dim(flux_table_sub), "\n")
+cat("Total rows:", n_total, "\n")
+cat("Used rows:", n_keep, "\n")
+
+# Numeric matrix for PCA
+mat <- flux_table_sub %>%
+  select(-1) %>%   # suppose première colonne = ID
+  as.matrix()
+
+storage.mode(mat) <- "double"
+
+cat("[CHECKPOINT] matrix dim:", dim(mat), "\n")
+
+# PCA
+pca <- stats::prcomp(
+  x = mat,
+  rank. = 200,
+  center = TRUE,
+  scale. = FALSE
 )
 
-pca_df <- as.data.frame(pca$x) #loadings
+pca_df <- as.data.frame(pca$x)
 
-# add IDs back (traceability like in PCoA)
-pca_df[[id_col]] <- ids
-pca_df <- pca_df %>% dplyr::select(all_of(id_col), everything())
+cat("[CHECKPOINT] PCA output dim:", dim(pca_df), "\n")
+cat("[CHECKPOINT] prcomp requested rank: 200\n")
 
-dir.create(
-    dirname(output_file),
-    recursive = TRUE,
-    showWarnings = FALSE
+# Write output
+dir.create(dirname(output_file), recursive = TRUE, showWarnings = FALSE)
+
+data.table::fwrite(pca_df, file = output_file, sep = "\t")
+
+cat("[CHECKPOINT] PCA written to:", output_file, "\n")
+
+
+# Variance expliquée
+var_exp <- (pca$sdev^2) / sum(pca$sdev^2)
+
+var_df <- data.frame(
+  PC = paste0("PC", seq_along(var_exp)),
+  variance_explained = var_exp
 )
 
-fwrite(
-    pca_df,
-    file = output_file,
-    sep = "\t"
-)
+var_file <- sub("_pca.tsv", "_pca_var.tsv", output_file)
+
+data.table::fwrite(var_df, file = var_file, sep = "\t")
+cat("[CHECKPOINT] variance explained written to:", var_file, "\n")

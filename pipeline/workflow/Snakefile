@@ -27,11 +27,17 @@ def all_outputs():
         )
 
         outputs.append(
-            f"{config['outDir']}/{model}/report/{model}.report.html"
+            f"{config['outDir']}/{model}/rcc/{model}_rcc.png"
         )
+
         outputs.append(
-            f"{config['outDir']}/{model}/fs_sampled/fs_sampled_{model}.tsv"
+            f"{config['outDir']}/{model}/gapfilling/{model}_gapfilled.tsv"
         )
+
+        # outputs.append(
+        #     f"{config['outDir']}/{model}/report/{model}.report.html"
+        # )
+
         # outputs.append(
         #     f"{config['outDir']}/{model}/pcoa_fs/{model}_pcoa.tsv"
         # )
@@ -46,23 +52,31 @@ rule all:
         all_outputs()
 
 
+
 # PCA
 rule pc_fs:
     input:
-        fs=f"{config['dataDir']}/models/{{models}}/fs/fs_{{models}}.tsv",
-        sampled=f"{config['outDir']}/{{models}}/fs_sampled/fs_sampled_{{models}}.tsv"
+        fs=f"{config['dataDir']}/models/{{models}}/fs/fs_{{models}}.tsv"
     output:
-        pca=f"{config['outDir']}/{{models}}/pca_fs/{{models}}_pca.tsv"
+        pca=f"{config['outDir']}/{{models}}/pca_fs/{{models}}_pca.tsv",
+        var = f"{config['outDir']}/{{models}}/pca_fs/{{models}}_pca_var.tsv",
+    log:
+        f"{config['outDir']}/{{models}}/pca_fs/{{models}}_pca.log"
+    params:
+        n=20000,
+        seed=42,
+        sampling=False  
     conda:
         "envs/env.yml"
-    threads: 1
+    threads: 3
     script:
         "scripts/pca_fs.R"
 
 
 rule plot_pca:
     input:
-        pca=f"{config['outDir']}/{{models}}/pca_fs/{{models}}_pca.tsv"
+        pca=f"{config['outDir']}/{{models}}/pca_fs/{{models}}_pca.tsv",
+        var=f"{config['outDir']}/{{models}}/pca_fs/{{models}}_pca_var.tsv"
     output:
         png=f"{config['outDir']}/{{models}}/pca_fs/{{models}}_pca.png"
     conda:
@@ -96,22 +110,6 @@ rule plot_umap:
     script:
         "scripts/plot_umap.R"
 
-
-# random sampling ids
-rule sample_fs:
-    input:
-        fs=f"{config['dataDir']}/models/{{models}}/fs/fs_{{models}}.tsv"
-    output:
-        sampled=f"{config['outDir']}/{{models}}/fs_sampled/fs_sampled_{{models}}.tsv"
-    params:
-        n=10000,
-        seed=42
-    conda:
-        "envs/env.yml"
-    threads: 1
-    script:
-        "scripts/sample_fs.R"
-
 #pcoa
 # rule pcoa_fs:
 #     input:
@@ -124,6 +122,30 @@ rule sample_fs:
 #     threads: 3
 #     script:
 #         "scripts/pcoa_fs.R"
+
+rule plot_rcc:
+    input:
+        fs=f"{config['dataDir']}/models/{{models}}/fs/fs_{{models}}.tsv"
+    output:
+        png=f"{config['outDir']}/{{models}}/rcc/{{models}}_rcc.png"
+    conda:
+        "envs/env.yml"
+    threads: 1
+    script:
+        "scripts/plot_rcc.R"
+
+
+rule flag_gapfilled:
+    input:
+        carveme=f"{config['dataDir']}/models/{{models}}/stats/carveme.reactions.list",
+        srp=f"{config['dataDir']}/models/{{models}}/stats/srp.reactions.list"
+    output:
+        tsv=f"{config['outDir']}/{{models}}/gapfilling/{{models}}_gapfilled.tsv"
+    conda:
+        "envs/env.yml"
+    threads: 1
+    script:
+        "scripts/flag_gapfilled.R"
 
 #HTML reports for each models
 rule render_report:

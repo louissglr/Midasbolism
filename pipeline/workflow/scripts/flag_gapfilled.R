@@ -1,0 +1,47 @@
+#!/usr/bin/env Rscript
+
+library(tidyverse)
+
+#### -----------------------------
+#### Input / Output
+#### -----------------------------
+carveme_file <- snakemake@input[["carveme"]]
+srp_file     <- snakemake@input[["srp"]]
+
+output_file  <- snakemake@output[["tsv"]]
+
+#### -----------------------------
+#### Load data
+#### -----------------------------
+model_reactions <- read_tsv(
+  carveme_file,
+  col_names = FALSE,
+  show_col_types = FALSE
+) %>%
+  pull(1) %>%
+  unique()
+
+srp_reactions <- read_tsv(
+  srp_file,
+  col_names = FALSE,
+  show_col_types = FALSE
+) %>%
+  pull(1) %>%
+  unique()
+
+#### -----------------------------
+#### Build presence table
+#### -----------------------------
+df <- tibble(
+  reaction = model_reactions,
+  srp_status = ifelse(
+    model_reactions %in% srp_reactions,
+    "present",
+    "absent"
+  )
+)
+
+#### -----------------------------
+#### Save TSV
+#### -----------------------------
+write_tsv(df, output_file)

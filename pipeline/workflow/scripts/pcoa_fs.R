@@ -40,7 +40,7 @@ pcoa_res <- ape::pcoa(dist_mat)
 pcoa_df <- as.data.frame(pcoa_res$vectors[, 1:2])
 colnames(pcoa_df) <- c("PCoA1", "PCoA2")
 
-# Add IDs for traceability
+
 pcoa_df$solution_id <- flux_table[[id_col]]
 
 dir.create(
