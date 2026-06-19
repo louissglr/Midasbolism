@@ -31,12 +31,20 @@ def all_outputs():
         )
 
         outputs.append(
+            f"{config['outDir']}/{model}/rcc/{model}_rcc_with_gp.png"
+        )
+
+        outputs.append(
             f"{config['outDir']}/{model}/gapfilling/{model}_gapfilled.tsv"
         )
 
-        # outputs.append(
-        #     f"{config['outDir']}/{model}/report/{model}.report.html"
-        # )
+        outputs.append(
+            f"{config['outDir']}/{model}/report/{model}.report.html"
+        )
+
+        outputs.append(
+            f"{config['outDir']}/median_flux_matrix.tsv"
+)
 
         # outputs.append(
         #     f"{config['outDir']}/{model}/pcoa_fs/{model}_pcoa.tsv"
@@ -135,6 +143,20 @@ rule plot_rcc:
         "scripts/plot_rcc.R"
 
 
+rule plot_rcc_gp:
+    input:
+        fs=f"{config['dataDir']}/models/{{models}}/fs/fs_{{models}}.tsv",
+        gp_status=f"{config['outDir']}/{{models}}/gapfilling/{{models}}_gapfilled.tsv"
+    output:
+        png=f"{config['outDir']}/{{models}}/rcc/{{models}}_rcc_with_gp.png"
+    conda:
+        "envs/env.yml"
+    threads: 1
+    script:
+        "scripts/plot_rcc_gp.R"
+
+
+
 rule flag_gapfilled:
     input:
         carveme=f"{config['dataDir']}/models/{{models}}/stats/carveme.reactions.list",
@@ -147,6 +169,20 @@ rule flag_gapfilled:
     script:
         "scripts/flag_gapfilled.R"
 
+
+rule median_flux_matrix:
+    input:
+        expand(
+            f"{config['dataDir']}/models/{{model}}/fs/fs_{{model}}.tsv",
+            model=config["models"]
+        )
+    output:
+        tsv=f"{config['outDir']}/median_flux_matrix.tsv"
+    conda:
+        "envs/env.yml"
+    script:
+        "scripts/median_flux_matrix.R"
+
 #HTML reports for each models
 rule render_report:
     input:
@@ -155,7 +191,8 @@ rule render_report:
         pca=f"{config['outDir']}/{{models}}/pca_fs/{{models}}_pca.tsv",
         umap=f"{config['outDir']}/{{models}}/umap_fs/{{models}}_umap.tsv",
         png_pca=f"{config['outDir']}/{{models}}/pca_fs/{{models}}_pca.png",
-        png_umap=f"{config['outDir']}/{{models}}/umap_fs/{{models}}_umap.png"
+        png_umap=f"{config['outDir']}/{{models}}/umap_fs/{{models}}_umap.png",
+        png_rcc_gp=f"{config['outDir']}/{{models}}/rcc/{{models}}_rcc_with_gp.png"
 
     output:
         html=report(
@@ -195,6 +232,7 @@ rule render_report:
             -P fs_file:"{input.fs}" \
             -P png_pca:"{input.png_pca}" \
             -P png_umap:"{input.png_umap}" \
+            -P png_rcc_gp:"{input.png_rcc_gp}" \
             > "{log}" 2>&1
 
         rm -f report_humess.qmd

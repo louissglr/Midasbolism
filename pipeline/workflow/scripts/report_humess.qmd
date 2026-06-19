@@ -24,6 +24,7 @@ params:
   fs_file: null  
   png_pca: null
   png_umap: null
+  png_rcc_gp: null
 ---
 ```{r setup, include=FALSE}
 suppressPackageStartupMessages({
@@ -53,7 +54,7 @@ summary_df <- data.frame(
   Value = c(
     params$models,
     nrow(fs),
-    ncol(fs)
+    ncol(fs[, -1, drop = FALSE])
   )
 )
 
@@ -63,6 +64,13 @@ kable(summary_df, align = c("l", "c"))
 ```{r tbl-benchmark}
 fs_preview <- fs[1:min(5, nrow(fs)), 1:min(10, ncol(fs))]
 kable(fs_preview, align = "c")
+```
+
+## RCC
+```{r fig-rcc_gp}
+#| fig-cap: "RCC with gp tag"
+#| out-width: 100%
+include_graphics(params$png_rcc_gp)
 ```
 
 ## Dimensionality reduction

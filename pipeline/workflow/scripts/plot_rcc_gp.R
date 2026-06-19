@@ -51,7 +51,7 @@ handle_NA <- function(cor_matrix, strategy = "zero"){
   stop(paste0(strategy, " is not a valid strategy, please choose between 'zero', 'delete' or 'keep'."))
 }
 
-plot_and_save_histogram <- function(res_cor_sum, srp_status = NULL){
+plot_and_save_histogram <- function(res_cor_sum, gp_status = NULL){
 
   df_tibble = tibble(
     reaction = names(res_cor_sum),
@@ -63,12 +63,12 @@ plot_and_save_histogram <- function(res_cor_sum, srp_status = NULL){
     )
   )
 
-  if (!is.null(srp_status)) {
+  if (!is.null(gp_status)) {
     df_tibble <- df_tibble %>%
-      left_join(srp_status, by = "reaction") %>%
-      mutate(status = replace_na(status, "absent"))
+      left_join(gp_status, by = "reaction") %>%
+      mutate(status = replace_na(status, "yes"))
   } else {
-    df_tibble <- df_tibble %>% mutate(status = "present")
+    df_tibble <- df_tibble %>% mutate(status = "no")
   }
 
   cumulative_cor_hist = ggplot(df_tibble, aes(x = cor_scaled, fill = status)) +
@@ -79,8 +79,8 @@ plot_and_save_histogram <- function(res_cor_sum, srp_status = NULL){
       boundary = 0
     ) +
     scale_fill_manual(
-      values = c("present" = "#69b3a2", "absent" = "#e07b6a"),
-      name = "SRP status"
+      values = c("yes" = "#69b3a2", "no" = "#e07b6a"),
+      name = "GapFilling"
     ) +
     xlim(c(0, 100)) +
     xlab("Scaled cumulative correlation") +
@@ -100,8 +100,7 @@ plot_and_save_histogram <- function(res_cor_sum, srp_status = NULL){
 #### parameters
 flux_sample_matrix_path = snakemake@input[["fs"]]
 plot_output_path        = snakemake@output[["png"]]
-correlation_matrix_path = snakemake@output[["correlation_matrix"]]
-srp_status_path         = snakemake@input[["srp_status"]]
+gp_status_path         = snakemake@input[["gp_status"]]
 
 #### main
 
@@ -119,8 +118,8 @@ res_cor = handle_NA(res_cor, "delete")
 res_cor_sum = apply(abs(res_cor), 1, sum)
 
 # Load SRP status
-srp_status = read_tsv(srp_status_path, show_col_types = FALSE) %>%
-  rename(status = srp_status)
+gp_status = read_tsv(gp_status_path, show_col_types = FALSE) %>%
+  rename(status = gp_status)
 
 # Plot and save histogram profile
-plot_and_save_histogram(res_cor_sum, srp_status)
+plot_and_save_histogram(res_cor_sum, gp_status)
