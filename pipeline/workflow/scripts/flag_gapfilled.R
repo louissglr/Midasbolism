@@ -30,8 +30,8 @@ srp_reactions <- read_tsv(
 
 df <- tibble(
   reaction = model_reactions,
-  gp_status = ifelse(
-    model_reactions %in% srp_reactions,
+  gp_status = if_else(
+    !(model_reactions %in% srp_reactions),
     "yes",
     "no"
   )
