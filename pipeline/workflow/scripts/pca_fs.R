@@ -1,10 +1,13 @@
 # Logging
 if (exists("snakemake")) {
-  log_file <- snakemake@log[[1]]           
+  log_file <- snakemake@log[[1]]
   log_dir <- dirname(log_file)
-  if (!dir.exists(log_dir)) dir.create(log_dir, recursive = TRUE)
+
+  if (!dir.exists(log_dir))
+    dir.create(log_dir, recursive = TRUE)
 
   mainlog <- file(log_file, open = "wt")
+
   sink(mainlog, append = FALSE, type = "output")
   sink(mainlog, append = FALSE, type = "message")
 
@@ -14,13 +17,16 @@ if (exists("snakemake")) {
 }
 
 suppressPackageStartupMessages({
-    library(readr)
-    library(dplyr)
-    library(data.table)
+  library(readr)
+  library(dplyr)
+  library(data.table)
 })
 
 # Inputs
 input_file <- snakemake@input[["fs"]]
+
+# Wildcard Snakemake
+model_name <- snakemake@wildcards[["models"]]
 
 # Params
 n <- snakemake@params[["n"]]
@@ -32,6 +38,7 @@ output_file <- snakemake@output[["pca"]]
 
 set.seed(seed)
 
+cat("[CHECKPOINT] model:", model_name, "\n")
 cat("[CHECKPOINT] input_file:", input_file, "\n")
 cat("[CHECKPOINT] n:", n, "seed:", seed, "\n")
 cat("[CHECKPOINT] sampling:", sampling, "\n")
@@ -49,7 +56,13 @@ n_total <- nrow(flux_table)
 if (isTRUE(sampling)) {
 
   n_keep <- min(n, n_total)
-  sample_idx <- sample(seq_len(n_total), n_keep, replace = FALSE)
+
+  sample_idx <- sample(
+    seq_len(n_total),
+    n_keep,
+    replace = FALSE
+  )
+
   flux_table_sub <- flux_table[sample_idx, ]
 
   cat("[CHECKPOINT] sampling ENABLED\n")
@@ -63,12 +76,12 @@ if (isTRUE(sampling)) {
 }
 
 cat("[CHECKPOINT] flux_table_sub dim:", dim(flux_table_sub), "\n")
-cat("Total rows:", n_total, "\n")
-cat("Used rows:", n_keep, "\n")
+cat("[CHECKPOINT] Total rows:", n_total, "\n")
+cat("[CHECKPOINT] Used rows:", n_keep, "\n")
 
 # Numeric matrix for PCA
 mat <- flux_table_sub %>%
-  select(-1) %>%   # suppose première colonne = ID
+  select(-1) %>%   # première colonne = identifiant
   as.matrix()
 
 storage.mode(mat) <- "double"
@@ -78,9 +91,9 @@ cat("[CHECKPOINT] matrix dim:", dim(mat), "\n")
 # PCA
 pca <- stats::prcomp(
   x = mat,
-  rank. = 200,
-  center = TRUE,
-  scale. = FALSE
+  rank. = 200, #maximal number of principal components to be used
+  center = TRUE, # a logical value indicating whether the variables should be shifted to be zero centered
+  scale. = FALSE #a logical value indicating whether the variables should be scaled to have unit variance before the analysis takes place.
 )
 
 pca_df <- as.data.frame(pca$x)
@@ -88,13 +101,20 @@ pca_df <- as.data.frame(pca$x)
 cat("[CHECKPOINT] PCA output dim:", dim(pca_df), "\n")
 cat("[CHECKPOINT] prcomp requested rank: 200\n")
 
-# Write output
-dir.create(dirname(output_file), recursive = TRUE, showWarnings = FALSE)
+# Write PCA output
+dir.create(
+  dirname(output_file),
+  recursive = TRUE,
+  showWarnings = FALSE
+)
 
-data.table::fwrite(pca_df, file = output_file, sep = "\t")
+data.table::fwrite(
+  pca_df,
+  file = output_file,
+  sep = "\t"
+)
 
 cat("[CHECKPOINT] PCA written to:", output_file, "\n")
-
 
 # Variance expliquée
 var_exp <- (pca$sdev^2) / sum(pca$sdev^2)
@@ -104,7 +124,19 @@ var_df <- data.frame(
   variance_explained = var_exp
 )
 
-var_file <- sub("_pca.tsv", "_pca_var.tsv", output_file)
+var_file <- sub(
+  "_pca.tsv",
+  "_pca_var.tsv",
+  output_file
+)
 
-data.table::fwrite(var_df, file = var_file, sep = "\t")
+data.table::fwrite(
+  var_df,
+  file = var_file,
+  sep = "\t"
+)
+
 cat("[CHECKPOINT] variance explained written to:", var_file, "\n")
+
+# Exemple d'utilisation du nom du modèle
+cat("[CHECKPOINT] PCA completed for model:", model_name, "\n")

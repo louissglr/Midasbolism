@@ -4,11 +4,14 @@ library(ggplot2)
 input_file  <- snakemake@input[["umap"]]
 output_file <- snakemake@output[["png"]]
 
+model_name <- snakemake@wildcards[["models"]]
+
 umap_df <- fread(input_file)
 
 p <- ggplot(umap_df, aes(x = UMAP1, y = UMAP2)) +
     geom_point(size = 1, alpha = 0.8) +
-    theme_minimal()
+    theme_minimal() +
+    ggtitle(paste0("UMAP on the first 30 PCs - model: ", model_name))
 
 dir.create(dirname(output_file), recursive = TRUE, showWarnings = FALSE)
 

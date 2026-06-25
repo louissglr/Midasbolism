@@ -66,7 +66,6 @@ pca <- prcomp(
   x = mat,
   center = TRUE,
   scale. = FALSE,
-  rank. = rank_max
 )
 
 # Coordonnées

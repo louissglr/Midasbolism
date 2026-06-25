@@ -6,6 +6,8 @@ input_file <- snakemake@input[["pca"]]
 var_file <- snakemake@input[["var"]]
 output_file <- snakemake@output[["png"]]
 
+model_name <- snakemake@wildcards[["models"]]
+
 pca_df <- fread(input_file)
 var_df <- fread(var_file)
 
@@ -20,7 +22,7 @@ p <- ggplot(pca_df, aes(x = PC1, y = PC2)) +
   geom_point(alpha = 0.7, size = 1) +
   theme_minimal() +
   labs(
-    title = "PCA (PC1 vs PC2)",
+    title = paste0("PCA (PC1 vs PC2) - ", model_name),
     x = paste0("PC1 (", round(pc1_var, 1), "%)"),
     y = paste0("PC2 (", round(pc2_var, 1), "%)")
   )
