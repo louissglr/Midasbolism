@@ -138,16 +138,16 @@ pca <- prcomp_irlba(
   flux_mat,
   n = 2,
   center = TRUE,
-  scale. = TRUE
+  scale. = FALSE
 )
 
-# pca <- prcomp(
-#   flux_mat,
-#   center = TRUE,
-#   scale. = TRUE
-# )
-
 cat("[CHECKPOINT] PCA completed\n")
+
+# Variance explained
+var_explained <- (pca$sdev^2) / sum(pca$sdev^2)
+
+pc1_lab <- paste0("PC1 (", round(100 * var_explained[1], 1), "%)")
+pc2_lab <- paste0("PC2 (", round(100 * var_explained[2], 1), "%)")
 
 scores_plot <- data.table(
   model = model_labels,
@@ -196,8 +196,8 @@ p <- ggplot(
   theme_bw() +
   labs(
     title = "PCA of flux sampling solution spaces",
-    x = "PC1",
-    y = "PC2",
+    x = pc1_lab,
+    y = pc2_lab,
     color = "Group"
   )
 

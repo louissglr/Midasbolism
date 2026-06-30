@@ -43,14 +43,14 @@ def all_outputs():
         # )
 
         outputs.append(
-            f"{config['outDir']}/all/pca_mean_fs/median_flux_matrix.tsv"
+            f"{config['outDir']}/all/pca_median_fs/median_flux_matrix.tsv"
         )
 
         outputs.append(
-            f"{config['outDir']}/all/pca_mean_fs/pca.tsv"
+            f"{config['outDir']}/all/pca_median_fs/pca.tsv"
         )
         outputs.append(
-            f"{config['outDir']}/all/pca_mean_fs/pca.png"
+            f"{config['outDir']}/all/pca_median_fs/pca.png"
         )
         outputs.append(
             f"{config['outDir']}/all/pca_all_fs/pca_all_fs.png"
@@ -185,7 +185,7 @@ rule median_flux_matrix:
             model=config["models"]
         )
     output:
-        tsv=f"{config['outDir']}/all/pca_mean_fs/median_flux_matrix.tsv"
+        tsv=f"{config['outDir']}/all/pca_median_fs/median_flux_matrix.tsv"
     log:
         f"{config['outDir']}/log/median_fs/median_flux_matrix.log"
     conda:
@@ -194,32 +194,32 @@ rule median_flux_matrix:
         "scripts/median_flux_matrix.R"
 
 
-# PCA on mean_fs
-rule pc_mean_fs:
+# PCA on median_fs
+rule pc_median_fs:
     input:
-        fs=f"{config['outDir']}/all/pca_mean_fs/median_flux_matrix.tsv"
+        fs=f"{config['outDir']}/all/pca_median_fs/median_flux_matrix.tsv"
     output:
-        pca=f"{config['outDir']}/all/pca_mean_fs/pca.tsv",
-        var=f"{config['outDir']}/all/pca_mean_fs/pca_var.tsv"
+        pca=f"{config['outDir']}/all/pca_median_fs/pca.tsv",
+        var=f"{config['outDir']}/all/pca_median_fs/pca_var.tsv"
     log:
-        f"{config['outDir']}/log/pca_mean_fs/pca.log"
+        f"{config['outDir']}/log/pca_median_fs/pca.log"
     conda:
         "envs/env.yml"
     threads: 3
     script:
-        "scripts/pca_mean_fs.R"
+        "scripts/pca_median_fs.R"
 
-rule plot_pca_mean_fs:
+rule plot_pca_median_fs:
     input:
-        pca=f"{config['outDir']}/all/pca_mean_fs/pca.tsv",
-        var=f"{config['outDir']}/all/pca_mean_fs/pca_var.tsv"
+        pca=f"{config['outDir']}/all/pca_median_fs/pca.tsv",
+        var=f"{config['outDir']}/all/pca_median_fs/pca_var.tsv"
     output:
-        png=f"{config['outDir']}/all/pca_mean_fs/pca.png"
+        png=f"{config['outDir']}/all/pca_median_fs/pca.png"
     conda:
         "envs/env.yml"
     threads: 1
     script:
-        "scripts/plot_pca_mean_fs.R"
+        "scripts/plot_pca_median_fs.R"
 
 rule all_flux_matrix:
     input:

@@ -148,16 +148,17 @@ cat(
   "\n"
 )
 
-# Écriture
-fwrite(
-  res_filt,
-  snakemake@output[["tsv"]],
-  sep = "\t"
-)
+out_file <- snakemake@output[["tsv"]]
+
+dir.create(dirname(out_file),
+           recursive = TRUE,
+           showWarnings = FALSE)
+
+fwrite(res_filt, out_file, sep = "\t")
 
 cat(
   "[CHECKPOINT] Output written to:",
-  snakemake@output[["tsv"]],
+  out_file,
   "\n"
 )
 
