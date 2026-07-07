@@ -1,3 +1,29 @@
+# Description:
+#   This script performs a Principal Component Analysis (PCA) on a median flux
+#   matrix generated from multiple metabolic models obtained via the HUMESS
+#   pipeline. The script also computes the proportion of variance explained by 
+#   each principal component and the cumulative explained variance.
+#
+# Inputs:
+#   - snakemake@input[["fs"]]:
+#       TSV file containing:
+#         * One row per model.
+#         * One column per reaction retained after variance filtering.
+#         * The first column contains the model ID.
+#
+# Outputs:
+#   - snakemake@output[["pca"]]:
+#       TSV file containing PCA coordinates where:
+#         * Each row corresponds to a metabolic model.
+#         * Columns correspond to principal component scores (PCs).
+#         * The first column contains the model ID.
+#
+#   - snakemake@output[["var"]]:
+#       TSV file containing PCA variance information where:
+#         * Each row corresponds to one principal component.
+#         * Contains the variance explained by each PC (col1 = variance_explained).
+#         * Contains the cumulative variance explained across PCs (col2 = cumulative_variance).
+
 # Logging
 if (exists("snakemake")) {
   log_file <- snakemake@log[[1]]

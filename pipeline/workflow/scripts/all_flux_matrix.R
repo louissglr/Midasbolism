@@ -141,6 +141,13 @@ pca <- prcomp_irlba(
   scale. = FALSE
 )
 
+# pca <- stats::prcomp(
+#   x = flux_mat,
+#   rank. = 2, #maximal number of principal components to be used
+#   center = TRUE, # a logical value indicating whether the variables should be shifted to be zero centered
+#   scale. = FALSE #a logical value indicating whether the variables should be scaled to have unit variance before the analysis takes place.
+# )
+
 cat("[CHECKPOINT] PCA completed\n")
 
 # Variance explained

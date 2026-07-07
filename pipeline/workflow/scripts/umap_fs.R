@@ -1,5 +1,33 @@
-library(data.table)
+# Description:
+#   This script performs a Uniform Manifold Approximation and Projection (UMAP)
+#   dimensionality reduction on PCA coordinates generated from flux sampling
+#   solutions of a single metabolic model. The first principal components (=30) are
+#   used as input for UMAP, and the resulting two-dimensional embedding is
+#   saved as output.
+#
+# Inputs:
+#   - snakemake@input[["pca"]]:
+#       TSV file containing PCA coordinates, where:
+#         * Rows correspond to flux samples (sampling solutions) from a single
+#           metabolic model.
+#         * Columns correspond to principal component scores.
+#
+#   - snakemake@wildcards[["models"]]:
+#       ID of the single metabolic model associated with the PCA
+#       coordinates.
+#
+# Outputs:
+#   - snakemake@output[["umap"]]:
+#       TSV file containing UMAP coordinates, where:
+#         * Rows correspond to flux samples.
+#         * Columns contain the two-dimensional UMAP embedding:
+#             - "UMAP1"
+#             - "UMAP2"
+
+suppressPackageStartupMessages({
+  library(data.table)
 library(uwot)
+})
 
 input_file  <- snakemake@input[["pca"]]
 output_file <- snakemake@output[["umap"]]

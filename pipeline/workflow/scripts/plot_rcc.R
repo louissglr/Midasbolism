@@ -1,5 +1,28 @@
 #! /usr/bin/env Rscript
 
+# Description:
+#   This script (Louis Paré) computes the pairwise correlation between reactions based on
+#   a flux sampling matrix. It handles missing values resulting from
+#   non-variable reactions according to the selected strategy, calculates the
+#   cumulative absolute correlation for each reaction, and generates a histogram
+#   showing the distribution of cumulative correlations.
+#
+# Inputs:
+#   - snakemake@input[["fs"]]:
+#       TSV file containing the flux sampling matrix, where:
+#         * Rows correspond to sampled solutions (~150k).
+#         * Columns correspond to reactions.
+#         * The first column contains solution ID
+#
+# Outputs:
+#   - snakemake@output[["png"]]:
+#       PNG image containing the histogram of cumulative correlations, where:
+#         * The X-axis represents scaled cumulative correlation values.
+#         * The Y-axis represents the number of reactions.
+#
+#   - snakemake@output[["correlation_matrix"]]:
+#       TSV file containing the reaction correlation matrix.
+
 #### libraries
 suppressPackageStartupMessages(library(tidyverse, quietly = TRUE))
 library(scales, quietly = TRUE)

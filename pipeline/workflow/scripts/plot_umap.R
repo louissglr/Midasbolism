@@ -1,5 +1,31 @@
-library(data.table)
-library(ggplot2)
+# Description:
+#   This script generates a two-dimensional scatter plot from UMAP coordinates
+#   obtained from PCA-reduced flux sampling data. 
+#
+# Inputs:
+#   - snakemake@input[["umap"]]:
+#       TSV file containing UMAP coordinates, where:
+#         * Rows correspond to flux samples (sampling solutions) from a single
+#           metabolic model.
+#         * Columns contain the two UMAP dimensions:
+#             - "UMAP1"
+#             - "UMAP2"
+#
+#   - snakemake@wildcards[["models"]]:
+#       ID of the single metabolic model associated with the UMAP
+#       coordinates.
+#
+# Outputs:
+#   - snakemake@output[["png"]]:
+#       PNG image containing the UMAP scatter plot, where:
+#         * The X-axis represents the first UMAP dimension (UMAP1).
+#         * The Y-axis represents the second UMAP dimension (UMAP2).
+#         * Each point corresponds to one flux sample.
+
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(data.table)
+})
 
 input_file  <- snakemake@input[["umap"]]
 output_file <- snakemake@output[["png"]]

@@ -1,6 +1,40 @@
-library(readr)
-library(ggplot2)
-library(data.table)
+# Description:
+#   This script generates a scatter plot from PCA coordinates
+#   obtained using the pca_fs.R script. The plot displays the
+#   first two principal components (PC1 and PC2) computed from flux sampling
+#   solutions of a single metabolic model. The percentage of variance explained
+#   by each principal component is displayed on the axes.
+#
+# Inputs:
+#   - snakemake@input[["pca"]]:
+#       TSV file containing PCA coordinates, where:
+#         * Each row corresponds to one flux sampling solution.
+#         * Columns correspond to principal component scores (PCs).
+#         * The PCA coordinates are generated from a single metabolic model.
+#
+#   - snakemake@input[["var"]]:
+#       TSV file containing PCA variance information, where:
+#         * The "variance_explained" column contains the proportion of variance
+#           explained by each principal component.
+#         * Each row corresponds to one principal component.
+#
+#   - snakemake@wildcards[["models"]]:
+#       ID of the metabolic model used to generate the flux sampling
+#
+# Outputs:
+#   - snakemake@output[["png"]]:
+#       PNG image containing the PCA scatter plot, where:
+#         * The X-axis represents PC1.
+#         * The Y-axis represents PC2.
+#         * Each point corresponds to one flux sampling solution.
+
+suppressPackageStartupMessages({
+  library(readr)
+  library(ggplot2)
+  library(data.table)
+})
+
+
 
 input_file <- snakemake@input[["pca"]]
 var_file <- snakemake@input[["var"]]

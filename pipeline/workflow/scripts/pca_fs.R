@@ -1,3 +1,44 @@
+# Description:
+#   This script performs a Principal Component Analysis (PCA) on a flux
+#   sampling matrix generated from a single metabolic model. It optionally
+#   subsamples the input matrix, computes the PCA, and outputs both the PCA
+#   coordinates and the proportion of variance explained by each principal
+#   component.
+#
+# Inputs:
+#   - snakemake@input[["fs"]]:
+#       TSV file containing the flux sampling matrix, where:
+#         * Rows correspond to flux samples ((~150k).
+#         * Columns correspond to metabolic reactions.
+#         * The first column contains flux sample identifiers and is excluded
+#           from PCA computation.
+#
+#   - snakemake@wildcards[["models"]]:
+#       ID of the single metabolic model associated with the flux
+#       sampling matrix.
+#
+#   - snakemake@params[["n"]]:
+#       Maximum number of flux samples to retain when sampling is enabled.
+#
+#   - snakemake@params[["seed"]]:
+#       Random seed used to ensure reproducible subsampling.
+#
+#   - snakemake@params[["sampling"]]:
+#       Boolean parameter indicating whether flux samples should be randomly
+#       subsampled before PCA computation.
+#
+# Outputs:
+#   - snakemake@output[["pca"]]:
+#       TSV file containing PCA coordinates, where:
+#         * Rows correspond to flux samples from the single metabolic model.
+#         * Columns correspond to principal component scores.
+#
+#   - pca_var.tsv:
+#       TSV file containing the variance explained by each principal component,
+#       where:
+#         * The "PC" column contains principal component identifiers.
+#         * The "variance_explained" column contains the proportion of variance
+#           explained by each component.
 # Logging
 if (exists("snakemake")) {
   log_file <- snakemake@log[[1]]
@@ -116,7 +157,7 @@ data.table::fwrite(
 
 cat("[CHECKPOINT] PCA written to:", output_file, "\n")
 
-# Variance expliquée
+# Explained Variance
 var_exp <- (pca$sdev^2) / sum(pca$sdev^2)
 
 var_df <- data.frame(
@@ -138,5 +179,4 @@ data.table::fwrite(
 
 cat("[CHECKPOINT] variance explained written to:", var_file, "\n")
 
-# Exemple d'utilisation du nom du modèle
 cat("[CHECKPOINT] PCA completed for model:", model_name, "\n")

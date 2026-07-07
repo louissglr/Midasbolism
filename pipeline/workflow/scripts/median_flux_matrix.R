@@ -1,3 +1,27 @@
+# Description:
+#   This script reads multiple flux sampling matrices (one per metabolic
+#   model obtained via the HUMESS pipeline), computes the median flux for
+#   each reaction within each model, combines all models into a single
+#   matrix, replaces missing reactions with zero flux, removes reactions
+#   with zero variance across models, and writes the resulting matrix to
+#   a TSV file.
+#
+# Inputs:
+#   - snakemake@input:
+#       Multiple TSV files named "fs_<model>.tsv".
+#       Each file contains flux sampling results where:
+#         * Rows correspond to sampled solutions (~150k).
+#         * Columns correspond to reactions.
+#         * The first column contains solution ID
+#
+# Outputs:
+#   - snakemake@output[["tsv"]]:
+#       TSV file containing:
+#         * One row per model.
+#         * One column per reaction retained after variance filtering.
+#         * The first column contains the model ID.
+
+
 # Logging
 if (exists("snakemake")) {
   log_file <- snakemake@log[[1]]
@@ -35,7 +59,7 @@ for (fs_file in snakemake@input) {
     "\n"
   )
 
-  # Suppression colonne ID des solutions
+  # Remove solution ID column
   fs <- fs[, -1]
 
   cat(
@@ -44,7 +68,7 @@ for (fs_file in snakemake@input) {
     "\n"
   )
 
-  # Médiane de chaque réaction
+  # Compute the median flux for each reaction
   med <- fs[, lapply(.SD, median, na.rm = TRUE)]
 
   med[, model := model]
@@ -53,7 +77,7 @@ for (fs_file in snakemake@input) {
   all_medians[[model]] <- med
 }
 
-# Fusion de tous les modèles
+# Merge all models
 res <- rbindlist(all_medians, fill = TRUE)
 
 cat(
@@ -62,9 +86,8 @@ cat(
   "\n"
 )
 
-# Méthode Louis Paré
 
-# Comptage des valeurs manquantes avant remplacement
+# Count missing values before replacement
 n_na <- sum(is.na(res))
 
 cat(
@@ -73,7 +96,7 @@ cat(
   "\n"
 )
 
-# Réactions absentes -> flux = 0
+# Missing reactions are assigned a flux of zero
 res[is.na(res)] <- 0
 
 cat(
@@ -82,7 +105,7 @@ cat(
   "\n"
 )
 
-# Matrice numérique sans colonne modèle
+# Extract the numeric matrix without the model column
 flux_mat <- as.matrix(res[, !"model"])
 
 storage.mode(flux_mat) <- "double"
@@ -93,7 +116,7 @@ cat(
   "\n"
 )
 
-# Variance de chaque réaction entre modèles
+# Compute reaction variance across models
 var_reac <- apply(flux_mat, 2, var)
 
 n_total_reactions <- length(var_reac)
@@ -118,7 +141,7 @@ cat(
   "\n"
 )
 
-# Liste des réactions supprimées
+# List removed reactions
 removed_reactions <- names(var_reac[var_reac == 0])
 
 cat(
@@ -127,7 +150,7 @@ cat(
   "\n"
 )
 
-# Filtrage
+# Filter reactions with non-zero variance
 flux_mat_filt <- flux_mat[, var_reac > 0, drop = FALSE]
 
 cat(
@@ -136,7 +159,7 @@ cat(
   "\n"
 )
 
-# Reconstruction data.table
+# Rebuild the data.table
 res_filt <- data.table(
   model = res$model,
   flux_mat_filt
