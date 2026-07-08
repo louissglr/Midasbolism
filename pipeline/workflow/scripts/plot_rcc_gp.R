@@ -1,5 +1,15 @@
 #! /usr/bin/env Rscript
 
+# Description:
+#   This script (adapted to Humess - Louis Paré) computes the pairwise
+#   correlation between reactions from a flux sampling matrix. It handles
+#   missing values resulting from non-variable reactions according to the
+#   selected strategy, calculates the cumulative absolute correlation score
+#   for each reaction, integrates gap-filling status information, rescales
+#   the scores to a 0–100 range, and generates a stacked histogram showing
+#   the distribution of cumulative correlations for gap-filled and
+#   non-gap-filled reactions. The histogram is saved as a PNG file.
+
 #### libraries
 suppressPackageStartupMessages(library(tidyverse, quietly = TRUE))
 library(scales, quietly = TRUE)

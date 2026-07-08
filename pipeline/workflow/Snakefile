@@ -38,9 +38,9 @@ def all_outputs():
             f"{config['outDir']}/{model}/gapfilling/{model}_gapfilled.tsv"
         )
 
-        # outputs.append(
-        #     f"{config['outDir']}/{model}/report/{model}.report.html"
-        # )
+        outputs.append(
+            f"{config['outDir']}/{model}/report/{model}.report.html"
+        )
 
         outputs.append(
             f"{config['outDir']}/all/pca_median_fs/median_flux_matrix.tsv"
@@ -55,10 +55,6 @@ def all_outputs():
         outputs.append(
             f"{config['outDir']}/all/pca_all_fs/pca_all_fs.png"
         )
-        # outputs.append(
-        #     f"{config['outDir']}/{model}/pcoa_fs/{model}_pcoa.tsv"
-        # )
-
     return outputs
 
 
@@ -102,7 +98,7 @@ rule plot_pca:
         "scripts/plot_pca.R"
 
 
-#UMAP (on PCA)
+#UMAP (on PCs)
 rule umap_fs:
     input:
         pca=f"{config['outDir']}/{{models}}/pca_fs/{{models}}_pca.tsv"
@@ -126,19 +122,8 @@ rule plot_umap:
     script:
         "scripts/plot_umap.R"
 
-#pcoa
-# rule pcoa_fs:
-#     input:
-#         fs=f"{config['dataDir']}/models/{{models}}/fs/fs_{{models}}.tsv",
-#         sampled=f"{config['outDir']}/{{models}}/fs_sampled/fs_sampled_{{models}}.tsv"
-#     output:
-#         pcoa=f"{config['outDir']}/{{models}}/pcoa_fs/{{models}}_pcoa.tsv"
-#     conda:
-#         "envs/env.yml"
-#     threads: 3
-#     script:
-#         "scripts/pcoa_fs.R"
 
+#RCC script Louis Paré
 rule plot_rcc:
     input:
         fs=f"{config['dataDir']}/models/{{models}}/fs/fs_{{models}}.tsv"
@@ -150,7 +135,7 @@ rule plot_rcc:
     script:
         "scripts/plot_rcc.R"
 
-
+# script adapted to Louis Paré
 rule plot_rcc_gp:
     input:
         fs=f"{config['dataDir']}/models/{{models}}/fs/fs_{{models}}.tsv",

@@ -1,3 +1,27 @@
+# Description:
+#   This script performs PCA on flux sampling solution spaces from multiple
+#   metabolic models. Flux samples are merged, constant reactions are removed,
+#   and PCA is applied. For visualization, up to 3000 flux samples per model 
+#   are randomly selected to generate a 2D PCA plot.
+#
+# Inputs:
+#   - snakemake@input:
+#       List of TSV files containing flux sampling matrices, where:
+#         * Each file corresponds to one metabolic model.
+#         * Rows correspond to flux samples (sampling solutions).
+#         * Columns correspond to metabolic reactions.
+#         * The first column contains flux sample ID.
+#
+# Outputs:
+#   - snakemake@output[["png"]]:
+#       PNG image containing the PCA scatter plot, where:
+#         * The X-axis represents the first principal component (PC1).
+#         * The Y-axis represents the second principal component (PC2).
+#         * Each point corresponds to one flux sample.
+#         * Point colors indicate the associated metabolic model.
+#         * The percentage of variance explained by each principal component
+#           is displayed on the axes.
+#
 # Logging
 if (exists("snakemake")) {
   log_file <- snakemake@log[[1]]

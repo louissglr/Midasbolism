@@ -1,32 +1,31 @@
 #!/usr/bin/env Rscript
 
 # Description:
-#   This script compares the reaction content of a metabolic model generated
-#   with CarveMe against a reference reaction set (SRP). It identifies
-#   reactions present in the metabolic model but absent from the reference
-#   set and generates a presence table indicating whether each reaction is
-#   specific to the model.
+#   This script compares the reactions present after the carving step
+#   with the reactions present after the gap-filling step (SRP). It identifies
+#   reactions retained after carving but absent after gap filling, and generates
+#   a presence table indicating whether each reaction is specific to the
+#   post-carving reaction set.
 #
 # Inputs:
 #   - snakemake@input[["carveme"]]:
-#       TSV file containing the list of reactions from CarveMe, where:
-#         * Each row corresponds to one reaction identifier.
+#       TSV file containing the reactions present after the carving step, where:
+#         * Each row corresponds to one reaction ID.
 #         * Only the first column is used.
 #
 #   - snakemake@input[["srp"]]:
-#       TSV file containing the reference reaction set, where:
-#         * Each row corresponds to one reaction identifier.
-#         * Only the first column is used.
+#       TSV file containing the reactions present after the gap-filling step (SRP), where:
+#         * Each row corresponds to one reaction ID.
 #
 # Outputs:
 #   - snakemake@output[["tsv"]]:
 #       TSV file containing the reaction presence table, where:
-#         * The "reaction" column contains reaction identifiers from the
-#           metabolic model.
+#         * The "reaction" column contains reaction ID from the
+#           post-carving reaction set.
 #         * The "gp_status" column indicates whether the reaction is absent
-#           from the SRP reference set:
-#             - "yes": reaction is present in the model but absent from SRP.
-#             - "no": reaction is also present in the SRP set.
+#           after the gap-filling step (SRP):
+#             - "yes": reaction is present after carving but absent after gap filling.
+#             - "no": reaction is present after both carving and gap filling.
 
 library(tidyverse)
 

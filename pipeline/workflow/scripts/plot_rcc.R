@@ -1,7 +1,7 @@
 #! /usr/bin/env Rscript
 
 # Description:
-#   This script (Louis Paré) computes the pairwise correlation between reactions based on
+#   This script (Humess - Louis Paré) computes the pairwise correlation between reactions based on
 #   a flux sampling matrix. It handles missing values resulting from
 #   non-variable reactions according to the selected strategy, calculates the
 #   cumulative absolute correlation for each reaction, and generates a histogram
